@@ -5,8 +5,8 @@ is already playing on the phone, plus a GPS speedometer.
 
 It is **not** a media player. Cruise has no library, playlists, accounts, or downloads, and it
 does not play audio. It reads the media session that another app publishes and sends transport
-commands to it. Your existing player keeps doing the work — Spotify stays Spotify, your local
-player stays your local player — so there is nothing to import, sync, or move.
+commands to it. Your existing player keeps doing the work. Spotify stays Spotify, your local
+player stays your local player, so there is nothing to import, sync, or move.
 
 | Media remote | Car mode |
 | --- | --- |
@@ -20,7 +20,7 @@ player stays your local player — so there is nothing to import, sync, or move.
 | --- | --- |
 | A front end for the media session already active on your phone | A music player or streaming service |
 | A transport remote: previous, play/pause, next, seek | A place to store or manage a music library |
-| Independent of any one app — works with anything that publishes a `MediaSession` | Tied to a specific service, account, or subscription |
+| Independent of any one app: works with anything that publishes a `MediaSession` | Tied to a specific service, account, or subscription |
 | A GPS speedometer with a trip meter | A calibrated vehicle instrument |
 
 Because it only drives an existing session, installing Cruise changes nothing about your
@@ -51,7 +51,7 @@ button or a car head unit, Cruise can control it.
 - Speed in km/h on a custom-drawn gauge, with a trip meter and live signal state.
 - Long-press the trip meter to reset it.
 - Explicit states for permission required, location services off, searching, weak accuracy,
-  unavailable, and locked — **"GPS LOCKED · LIVE"**.
+  unavailable, and locked (**GPS LOCKED · LIVE**).
 - Fixes without accuracy data, or worse than 20 m, are never used to calculate speed.
 - **SOS** opens the dialer without placing a call. **Map** opens a map app at the last fix.
 - Clock, date, and session time on the dashboard.
@@ -127,13 +127,13 @@ NotificationListenerService · Fused location · Palette · Gradle · minSdk 26,
 
 Planned for upcoming versions. No dates; detail will be tracked in the issue tracker.
 
-- **Car connection prompt** — show a notification when the phone connects to the car over
+- **Car connection prompt:** show a notification when the phone connects to the car over
   Bluetooth, offering to open Cruise directly in car mode.
-- **Automatic auto-rotate** — turn auto-rotate on while Cruise is in the foreground, while the
+- **Automatic auto-rotate:** turn auto-rotate on while Cruise is in the foreground, while the
   existing Settings tile stays available to switch it off or on manually.
-- **OBD-II telemetry** — real-time vehicle data from a Bluetooth OBD-II adapter (engine RPM,
+- **OBD-II telemetry:** real-time vehicle data from a Bluetooth OBD-II adapter (engine RPM,
   coolant temperature, intake air, fuel trims) shown alongside the GPS speedometer.
-- **UI refinements** — continued work on dashboard layout, typography, and transitions.
+- **UI refinements:** continued work on dashboard layout, typography, and transitions.
 
 ## Install
 
