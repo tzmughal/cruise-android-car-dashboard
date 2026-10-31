@@ -1,4 +1,4 @@
-<img src="screenshots/icon.png" width="104" align="right" alt="Cruise app icon">
+<img src="screenshots/app-icon.png" width="104" align="right" alt="Cruise app icon">
 
 # Cruise: Android Car Dashboard, Media Remote and GPS Speedometer
 
