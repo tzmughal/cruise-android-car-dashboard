@@ -123,6 +123,18 @@ Reordering is also available to screen readers through each tile's *move earlier
 Kotlin · Jetpack Compose · Material 3 · MediaSession / MediaController ·
 NotificationListenerService · Fused location · Palette · Gradle · minSdk 26, targetSdk 35
 
+## Roadmap
+
+Planned for upcoming versions. No dates; detail will be tracked in the issue tracker.
+
+- **Car connection prompt** — show a notification when the phone connects to the car over
+  Bluetooth, offering to open Cruise directly in car mode.
+- **Automatic auto-rotate** — turn auto-rotate on while Cruise is in the foreground, while the
+  existing Settings tile stays available to switch it off or on manually.
+- **OBD-II telemetry** — real-time vehicle data from a Bluetooth OBD-II adapter (engine RPM,
+  coolant temperature, intake air, fuel trims) shown alongside the GPS speedometer.
+- **UI refinements** — continued work on dashboard layout, typography, and transitions.
+
 ## Install
 
 1. Download `Cruise.apk` from the **Releases** page.
