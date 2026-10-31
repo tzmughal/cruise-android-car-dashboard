@@ -1,7 +1,11 @@
-# Cruise
+# Cruise: Android Car Dashboard, Media Remote and GPS Speedometer
 
-Cruise is a landscape Android dashboard for the car: a remote control for whatever media app
-is already playing on the phone, plus a GPS speedometer.
+Cruise is a landscape Android app for the car: a media remote for whatever player is already
+running on the phone, plus a GPS speedometer with a trip meter. It is built in Kotlin with
+Jetpack Compose and controls Spotify, YouTube Music, or any Android app that publishes a
+media session.
+
+**[Download the latest APK →](https://github.com/tzmughal/cruise-apk/releases/latest)**
 
 It is **not** a media player. Cruise has no library, playlists, accounts, or downloads, and it
 does not play audio. It reads the media session that another app publishes and sends transport
@@ -10,9 +14,9 @@ player stays your local player, so there is nothing to import, sync, or move.
 
 | Media remote | Car mode |
 | --- | --- |
-| ![Home screen](screenshots/home.png) | ![Car mode](screenshots/car-mode.png) |
+| ![Cruise media remote with album art, track title, artist and playback controls](screenshots/home.png) | ![Cruise car mode with large album art and track title](screenshots/car-mode.png) |
 | **Speedometer** | **Settings** |
-| ![Speedometer](screenshots/speedometer.png) | ![Settings](screenshots/settings.png) |
+| ![Cruise GPS speedometer showing a km/h gauge, trip meter and signal status](screenshots/speedometer.png) | ![Cruise settings tiles for car mode, full screen and display options](screenshots/settings.png) |
 
 ## What it is and isn't
 
