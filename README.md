@@ -1,3 +1,5 @@
+<img src="screenshots/icon.png" width="104" align="right" alt="Cruise app icon">
+
 # Cruise: Android Car Dashboard, Media Remote and GPS Speedometer
 
 Cruise is a landscape Android app for the car: a media remote for whatever player is already
