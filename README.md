@@ -5,7 +5,7 @@ running on the phone, plus a GPS speedometer with a trip meter. It is built in K
 Jetpack Compose and controls Spotify, YouTube Music, or any Android app that publishes a
 media session.
 
-**[Download the latest APK →](https://github.com/tzmughal/cruise-apk/releases/latest)**
+**[Download the latest APK →](https://github.com/tzmughal/cruise-android-car-dashboard/releases/latest)**
 
 It is **not** a media player. Cruise has no library, playlists, accounts, or downloads, and it
 does not play audio. It reads the media session that another app publishes and sends transport
