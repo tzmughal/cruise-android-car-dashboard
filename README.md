@@ -1,7 +1,12 @@
 # Cruise
 
-A landscape Android app that turns an old phone into a car dashboard: a media remote for
-whatever is playing on the device, plus a GPS speedometer mode.
+Cruise is a landscape Android dashboard for the car: a remote control for whatever media app
+is already playing on the phone, plus a GPS speedometer.
+
+It is **not** a media player. Cruise has no library, playlists, accounts, or downloads, and it
+does not play audio. It reads the media session that another app publishes and sends transport
+commands to it. Your existing player keeps doing the work — Spotify stays Spotify, your local
+player stays your local player — so there is nothing to import, sync, or move.
 
 | Media remote | Car mode |
 | --- | --- |
@@ -9,41 +14,59 @@ whatever is playing on the device, plus a GPS speedometer mode.
 | **Speedometer** | **Settings** |
 | ![Speedometer](screenshots/speedometer.png) | ![Settings](screenshots/settings.png) |
 
-Cruise does not play or stream audio. It finds the active media session using Android's
-notification listener, then sends transport commands (previous / play-pause / next / seek)
-to that app — Spotify, YouTube Music, a local player, anything that publishes a session.
+## What it is and isn't
+
+| It is | It isn't |
+| --- | --- |
+| A front end for the media session already active on your phone | A music player or streaming service |
+| A transport remote: previous, play/pause, next, seek | A place to store or manage a music library |
+| Independent of any one app — works with anything that publishes a `MediaSession` | Tied to a specific service, account, or subscription |
+| A GPS speedometer with a trip meter | A calibrated vehicle instrument |
+
+Because it only drives an existing session, installing Cruise changes nothing about your
+playlists, favourites, history, or audio output. If an app can be controlled from a headset
+button or a car head unit, Cruise can control it.
 
 ## Features
 
-### Media remote
+### Media control
 
-- Live album art, track title, artist, and playback progress from the active session.
-- Previous, play/pause, and next controls, plus seeking when the player supports it.
-- Position is projected from the session's reported position and playback speed, so the
-  progress bar keeps moving between updates.
-- A five-second refresh recovers from players that don't push session updates reliably.
-- A playing session is preferred. If several are playing, the most recently updated one
-  wins; when playback pauses, the current session is kept while it stays active.
-- **Media player** launches the app that owns the active session, when it exposes one.
+- Live album art, title, artist, and playback progress from the active session.
+- Previous, play/pause, and next, plus seeking when the player supports it.
+- Position is projected from the session's reported position and playback speed, so progress
+  keeps advancing between updates.
+- A five-second refresh recovers from players that do not push session updates reliably.
+- A playing session is preferred. If several are playing, the most recently updated one wins;
+  when playback pauses, the current session is kept while it remains active.
+- **Media player** opens the app that owns the active session, when it exposes a launch intent.
 
 ### Car mode
 
-- Tap the album panel to open a big-cover layout with title and artist.
-- Background colours are sampled from the current album art, animating as tracks change.
-- Optional artist line (`Artist in car mode`), close button returns to the remote.
+- Tap the album panel for a large-cover layout with title and artist.
+- Background colours are sampled from the current album art and animate as tracks change.
+- The artist line is optional; the close button returns to the media remote.
 
 ### GPS speedometer
 
-- Speed in km/h drawn on a custom gauge, with a trip meter and a live signal state.
+- Speed in km/h on a custom-drawn gauge, with a trip meter and live signal state.
 - Long-press the trip meter to reset it.
 - Explicit states for permission required, location services off, searching, weak accuracy,
-  unavailable, and locked: **"GPS LOCKED · LIVE"**.
-- Fixes without accuracy data, or worse than 20 m, are never used for speed.
-- **SOS** opens the dialer (it never places the call). **Map** opens a map app at the last fix.
+  unavailable, and locked — **"GPS LOCKED · LIVE"**.
+- Fixes without accuracy data, or worse than 20 m, are never used to calculate speed.
+- **SOS** opens the dialer without placing a call. **Map** opens a map app at the last fix.
 - Clock, date, and session time on the dashboard.
-- Track controls keep working without GPS; only the speed reading needs location.
+- Track controls keep working without GPS; only the speed reading requires location.
 
-### Gestures
+### Interface
+
+- Full-screen landscape layout that stays awake while Cruise is open.
+- Ambient album-art lighting that can be switched off for a plain dark background.
+- Window dimming that does not change the device's brightness setting.
+- Haptic feedback on supported controls.
+- Optional auto-rotate toggle, driven through Android's system setting.
+- Settings tiles can be reordered by long-press and drag.
+
+## Gestures
 
 | Screen | Gesture | Action |
 | --- | --- | --- |
@@ -63,7 +86,7 @@ to that app — Spotify, YouTube Music, a local player, anything that publishes 
 Reordering is also available to screen readers through each tile's *move earlier* and
 *move later* actions.
 
-### Settings
+## Settings
 
 | Tile | Behaviour |
 | --- | --- |
@@ -77,13 +100,23 @@ Reordering is also available to screen readers through each tile's *move earlier
 | Media player | Opens the app behind the active media session |
 | Dim display | Dims Cruise's window without changing device brightness |
 
+## Permissions
+
+| Permission | Required | Purpose |
+| --- | --- | --- |
+| Notification access | Yes | Discover media sessions and send transport commands |
+| Location (fine or coarse) | No | Speedometer only, requested when the mode is opened; no background location |
+| Write system settings | No | The Auto rotate tile |
+| Vibrate | No | Haptic feedback |
+
 ## How it works
 
-- A `NotificationListenerService` receives media-session callbacks and discovers players.
-- `MediaController` instances carry transport actions and the reported playback position,
-  which Cruise projects forward between updates.
-- When several sessions are playing, the most recently updated one wins.
-- UI is pure Jetpack Compose, with custom drawing for the gauge and animated background.
+1. A `NotificationListenerService` receives media-session callbacks and discovers players.
+2. `MediaController` instances expose transport actions, metadata, and the reported playback
+   position, which Cruise projects forward between updates.
+3. Commands are dispatched to the selected controller; Cruise never touches the audio stream.
+4. The UI is Jetpack Compose throughout, with custom drawing for the gauge and the animated
+   background.
 
 ## Tech
 
@@ -93,22 +126,18 @@ NotificationListenerService · Fused location · Palette · Gradle · minSdk 26,
 ## Install
 
 1. Download `Cruise.apk` from the **Releases** page.
-2. Install it (you'll need to allow installs from unknown sources).
-3. Open Cruise → **Open notification access** → enable Cruise.
+2. Install it, allowing installs from unknown sources if prompted.
+3. Open Cruise and choose **Open notification access**, then enable Cruise.
 4. Start playback in any media app and return to Cruise.
-5. Optional: go to Settings → **Cruise mode** and allow location for the speedometer.
+5. Optional: Settings → **Cruise mode** and allow location for the speedometer.
 
 This is a debug-signed build for personal use, not a Play Store release.
 
-## Permissions
-
-- **Notification access** — required; used to discover and control media sessions.
-- **Location (fine or coarse)** — optional, requested only when the speedometer is opened.
-  Cruise does not ask for background location.
-- **Write system settings** — optional, only for the Auto rotate tile.
-- **Vibrate** — optional, only for haptic feedback.
-
 ## Notes
 
-Speed comes from GPS and depends on hardware, reception, and fix quality. It is not
-calibrated vehicle speed and should not be used as a vehicle instrument.
+- Speed is derived from GPS and depends on hardware, reception, and fix quality. It is not
+  calibrated vehicle speed and should not be used as a vehicle instrument.
+- Cruise can only control players that publish a standard Android media session and that
+  advertise the corresponding transport actions. A player that does not support seeking
+  cannot be seeked from Cruise.
+- Cruise can open the dialer and a map app, but does not place calls or provide navigation.
